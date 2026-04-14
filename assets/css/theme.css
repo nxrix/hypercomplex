@@ -1,1 +1,129 @@
+@font-face {
+  font-family: "Inter";
+  src: url("../../assets/font/inter.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
+@font-face {
+  font-family: "Estedad";
+  src: url("../../assets/font/estedad.woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  scrollbar-color: #333 #222;
+  unicode-bidi: plaintext;
+}
+
+input,
+button,
+textarea,
+select,
+optgroup,
+option {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+html {
+  font-family: "Estedad";
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #111;
+  color: #eee;
+}
+
+body {
+  margin: 0 14px;
+}
+
+h1 {
+  padding-top: 1rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+a[href], a.link {
+  color: #f05;
+  text-decoration-color: #f05;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a[href]:hover, a.link:hover {
+  text-decoration: underline;
+}
+
+pre, code {
+  font-family: monospace;
+}
+
+img {
+  max-width: calc(100vw - 28px);
+}
+
+p,
+table,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  max-width: 640px;
+}
+
+hr {
+  height: 1px;
+  margin: 1rem 0;
+  padding: 1rem 0;
+  border: none;
+  background: no-repeat center/100% 1px
+    linear-gradient(to right,#333,#333);
+}
+
+pre {
+  padding: 2px 0;
+}
+
+button,
+input,
+textarea,
+select {
+  background-color: #111;
+  border: 1px solid #333;
+  outline-color: #f05;
+  border-radius: 4px;
+  accent-color: #f05;
+  padding: 4px 8px;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #f05;
+  outline-offset: 1px;
+}
+
+button {
+  cursor: pointer;
+}

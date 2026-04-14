@@ -1,0 +1,10 @@
+html, body { height: 100%; }  
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 900px;
+  margin: 0 auto;
+  height: 100%;
+}
+#footer { padding: 0 1rem 2rem 1rem; }
+#footer a, #footer span { margin-inline-end: 0.5rem; }
