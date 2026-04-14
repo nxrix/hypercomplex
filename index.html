@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assets/css/theme.css">
+  <link rel="stylesheet" href="./assets/css/layout.css">
+  <link rel="stylesheet" href="./assets/css/tool.css">
+  <title>?</title>
+</head>
+<body>
+
+<div class="wrapper" style="opacity:0">
+  <div style="padding-top:14px">
+
+    <h1>Hypercomplex</h1>
+
+    <canvas id="canvas"></canvas>
+
+    <div class="controls">
+
+      <div style="display:grid;grid-template-columns:1fr 2fr 1fr;gap:2px">
+        <button id="prev"><</button>
+        <div style="display:flex">
+          <input id="ninput" type="number" style="text-align:center" value="0" min="0" max="575">
+        </div>
+        <button id="next">></button>
+      </div>
+
+      <div id="orders">
+        <button>0</button>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+      </div>
+
+      <div id="signs">
+      </div>
+
+      <div style="display:flex">
+        <input id="vinput" type="number" style="text-align:center" value="0">
+      </div>
+
+    </div>
+
+    <br>
+
+    <button onclick="set_camera(0   ,0)">F</button>
+    <button onclick="set_camera(0.25,0)">B</button>
+    <button onclick="set_camera( 0.125,0)">L</button>
+    <button onclick="set_camera(-0.125,0)">R</button>
+    <button onclick="set_camera(0, 0.24999)">U</button>
+    <button onclick="set_camera(0,-0.24999)">D</button>
+
+    <hr>
+
+    <h2>Examples</h2>
+    <p>
+      <a class="link" onclick="load(this.innerText)">38162424</a>
+      <br>
+      <a class="link" onclick="load(this.innerText)">76437908</a>
+      <br>
+      <a class="link" onclick="load(this.innerText)"> 1588608</a>
+      <br>
+      <a class="link" onclick="load(this.innerText)">23561856</a>
+      <br>
+      <a class="link" onclick="load(this.innerText)">21239424</a>
+    </p>
+
+    <hr>
+
+    <table id="table" style="font-size:12px;text-align:center"></table>
+
+  </div>
+  <div style="margin-top:auto;">
+    <hr style="margin-top:0">
+    <div id="footer">Copyright nxrix, 2026</div>
+  </div>
+</div>
+
+<script src="./assets/js/tables.js"></script>
+<script src="./assets/js/camera.js"></script>
+
+<script>
+
+function create_shader(gl,type,source) {
+  const shader = gl.createShader(type);
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+    const error = gl.getShaderInfoLog(shader);
+    gl.deleteShader(shader);
+    throw new Error(error);
+  }
+  return shader;
+}
+
+function create_program(gl,vertexShader,fragmentShader) {
+  const program = gl.createProgram();
+  gl.attachShader(program, vertexShader);
+  gl.attachShader(program, fragmentShader);
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    const error = gl.getProgramInfoLog(program);
+    gl.deleteProgram(program);
+    throw new Error(error);
+  }
+  return program;
+}
+
+// Table of Groups
+
+(() => {
+  for (let i = 0; i < 6; i++) {
+    const orow = document.createElement("tr");
+    for (let j = 0; j < 4; j++) {
+      const groupIndex = i * 4 + j;
+      const cell = document.createElement("td");
+      cell.style.padding = "4px";
+      const groupData = groups_sorted[groupIndex];
+      const div = document.createElement("div");
+      div.style.outline = "1px solid #333";
+      div.style.padding = "8px";
+      div.style.borderRadius = "8px";
+      div.style.display = "flex";
+      div.style.flexDirection = "column";
+      div.style.alignItems = "stretch";
+
+      const header = document.createElement("div");
+      header.textContent = `n${groups.indexOf(groupData)}`;
+      header.style.textAlign = "center";
+      div.appendChild(header);
+      const hr = document.createElement("hr");
+      hr.style.margin = "8px";
+      hr.style.padding = "0";
+      div.appendChild(hr);
+
+      const itable = document.createElement("table");
+      for (let k = 0; k < 8; k++) {
+        const irow = document.createElement("tr");
+        for (let m = 0; m < 4; m++) {
+          const index = k * 4 + m;
+          if (index<groupData.length) {
+            const icell = document.createElement("td");
+            icell.textContent = groupData[index];
+            icell.style.padding = "0 4px";
+            irow.appendChild(icell);
+          }
+        }
+        itable.appendChild(irow);
+      }
+      div.appendChild(itable);
+      cell.appendChild(div);
+      orow.appendChild(cell);
+    }
+    table.appendChild(orow);
+  }
+  const rows = table.querySelectorAll("tr");
+  rows.forEach(row => {
+    const cells = Array.from(row.children);
+    let max = 0;
+    cells.forEach(td => {
+      const div = td.querySelector("div");
+      if (div) {
+        div.style.height = "auto";
+        max = Math.max(max, div.offsetHeight);
+      }
+    });
+    cells.forEach(td => {
+      const div = td.querySelector("div");
+      if (div) div.style.height = max-16+"px";
+    });
+  });
+})();
+
+// 4D Order
+
+const order_buttons = document.querySelectorAll("#orders button");
+const update_orders = (n) => {
+  order_buttons.forEach((b,i) => {
+    if (i === n) {
+      b.classList.add("green");
+    } else {
+      b.classList.remove("green");
+    }
+  });
+}
+order_buttons.forEach((b,i) => {
+  b.onclick = () => {
+    order = i;
+    update_orders(order);
+    update_v();
+    compile_shader();
+    gl.drawArrays(gl.TRIANGLES,0,6);
+  }
+});
+
+// Table Number
+
+prev.onclick = () => {
+  n = Math.max(n-1,0);
+  ninput.value = n;
+  update_v();
+  compile_shader();
+  gl.drawArrays(gl.TRIANGLES,0,6);
+}
+
+next.onclick = () => {
+  n = Math.min(n+1,575);
+  ninput.value = n;
+  update_v();
+  compile_shader();
+  gl.drawArrays(gl.TRIANGLES,0,6);
+}
+
+ninput.addEventListener("input",()=>{
+  n = Math.min(Math.max(parseInt(ninput.value)||0,0),575);
+  update_v();
+  compile_shader();
+  gl.drawArrays(gl.TRIANGLES,0,6);
+});
+
+// --- //
+
+const shader = `
+precision highp float;
+precision highp int;
+
+uniform vec3 iResolution;
+uniform vec4 iCamera;
+
+//#define AA 2
+//#define perspective
+
+#define max_iter 16
+#define eps 0.001
+#define PI  3.1415926
+#define TAU 6.2831853
+
+mat3 lookat(vec3 ro, vec3 ta, vec3 up) {
+  vec3 ww = normalize(ta-ro);
+  vec3 uu = normalize(cross(ww,up));
+  vec3 vv = normalize(cross(uu,ww));
+  return mat3(uu,vv,ww);
+}
+
+vec2 iSphere(vec3 ro, vec3 rd, vec3 p, float r) {
+  vec3 oc = ro-p;
+  float b = dot(oc,rd);
+  float c = dot(oc,oc)-r*r;
+  float h = b*b-c;
+  if (h<0.0) return vec2(16,-16);
+  h = sqrt(h);
+  return vec2(-b-h,-b+h);
+}
+
+void rot(inout vec2 p, float a) {
+  float s = sin(a),
+        c = cos(a);
+  p *= mat2(c,s,-s,c);
+}
+
+//--input--//
+
+#ifdef neps
+#else
+#define neps 0.001
+#endif
+
+//#define accurate_f
+#define accurate_n
+
+#ifdef custom_f
+#else
+  #ifdef accurate_f
+    float f(vec3 p) {
+      vec4 c = s(vec4(p,0));
+      vec4 z = vec4(0);
+      vec4 dx = s(vec4(1,0,0,0)); 
+      vec4 dy = s(vec4(0,1,0,0));
+      vec4 dz = s(vec4(0,0,1,0));
+      for (int i=0;i<max_iter;i++) {
+        if (dot(z,z)>16.0) break;
+        dx = mul(dx,z)+mul(z,dx)+s(vec4(1,0,0,0));
+        dy = mul(dy,z)+mul(z,dy)+s(vec4(0,1,0,0));
+        dz = mul(dz,z)+mul(z,dz)+s(vec4(0,0,1,0));
+        z = mul(z,z)+c;
+      }
+      float zl = length(z);
+      return 0.5*zl*log(zl)/sqrt(dot(dx,dx)+dot(dy,dy)+dot(dz,dz));
+    }
+  #else
+    float f(vec3 p) {
+      vec4 c = s(vec4(p,0));
+      vec4 z = vec4(0);
+      float d = 1.0;
+      for (int i=0;i<max_iter;i++) {
+        float r2 = dot(z,z);
+        if (r2>16.0) break;
+        vec4 z2 = mul(z,z);
+        z = z2+c;
+        d = 2.0*length(z2)/max(sqrt(r2),0.0001)*d+1.0;
+      }
+      float zl = length(z);
+      return 0.5*zl*log(zl)/d;
+    }
+  #endif
+#endif
+
+#ifdef custom_n
+#else
+  #ifdef accurate_n
+    vec3 n(vec3 p) {
+      vec4 c = s(vec4(p,0));
+      vec4 z = vec4(0);
+      vec4 dx = s(vec4(1,0,0,0)); 
+      vec4 dy = s(vec4(0,1,0,0));
+      vec4 dz = s(vec4(0,0,1,0));
+      for (int i=0;i<max_iter;i++) {
+        float r2 = dot(z,z);
+        if (r2>16.0) break;
+        dx = mul(dx,z)+mul(z,dx)+s(vec4(1,0,0,0));
+        dy = mul(dy,z)+mul(z,dy)+s(vec4(0,1,0,0));
+        dz = mul(dz,z)+mul(z,dz)+s(vec4(0,0,1,0));
+        z = mul(z,z)+c;
+      }
+      return normalize(vec3(
+        dot(z,dx),
+        dot(z,dy),
+        dot(z,dz)
+      ));
+    }
+  #else
+    vec3 n(vec3 p) {
+      const vec2 k = vec2(1,-1)*neps;
+      return normalize(
+        k.xyy*f(p+k.xyy)+
+        k.yyx*f(p+k.yyx)+
+        k.yxy*f(p+k.yxy)+
+        k.xxx*f(p+k.xxx)
+      );
+    }
+  #endif
+#endif
+
+vec4 render(vec2 fragCoord) {
+  vec2 uv = (2.0*fragCoord-iResolution.xy)/min(iResolution.x,iResolution.y);
+  vec4 col = vec4(0);
+  vec3 ro = vec3(0,0,3);
+  rot(ro.yz,(0.5-iCamera.y)*TAU);
+  rot(ro.xz,(0.25-iCamera.x)*TAU*2.0);
+  mat3 cam = lookat(ro,vec3(0),vec3(0,1,0));
+
+  #ifdef perspective
+  vec3 rd = cam*normalize(vec3(uv,1));
+  #else
+  vec3 rd = cam*normalize(vec3(0,0,1));
+  ro += cam*vec3(uv,0)*2.0;
+  #endif
+
+  vec2 b = iSphere(ro,rd,vec3(0),2.0+eps);
+  if (b.x==16.0) {
+    return vec4(0);
+  }
+  float t = max(0.0,b.x);
+  for (int i=0;i<512;i++) {
+    vec3 p = ro+rd*t;
+    float d = f(p);
+    if (d < eps) {
+      col = vec4(n(p)*0.5+0.5,1);
+      break;
+    }
+    t += d;
+    if (t>=b.y) break;
+  }
+  return col;
+}
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
+  vec4 col = vec4(0);
+  #ifdef AA
+  for(int x=0;x<AA;x++){
+    for(int y=0;y<AA;y++){
+      col += render(fragCoord+vec2(x,y)/float(AA)-0.5);
+    }
+  }
+  col /= float(AA*AA);
+  #else
+  col = render(fragCoord);
+  #endif
+  fragColor = col;
+}`;
+
+let n = 0;
+let order = 0;
+update_orders(order);
+let mat = [
+  0,0,0,0,
+  0,0,0,0,
+  0,0,0,0,
+  0,0,0,0
+];
+
+const update_v = () => {
+  let v = 0;
+  for (let i=0;i<16;i++) {
+    if (mat[i]>0) v |= 1<<i;
+  }
+  vinput.value = n+v*576+order*576*65536;
+  history.replaceState({},"","#"+vinput.value);
+}
+
+const get_mul = (n) => {
+  const b = tables[n];
+  const m = mat.map(i=>["+","-"][i]);
+  return `vec4 mul(vec4 a,vec4 b) {
+  return vec4(
+    ${m[ 0]}a.x*b.${b[ 0]}${m[ 1]}a.y*b.${b[ 1]}
+    ${m[ 2]}a.z*b.${b[ 2]}${m[ 3]}a.w*b.${b[ 3]},
+    ${m[ 4]}a.x*b.${b[ 4]}${m[ 5]}a.y*b.${b[ 5]}
+    ${m[ 6]}a.z*b.${b[ 6]}${m[ 7]}a.w*b.${b[ 7]},
+    ${m[ 8]}a.x*b.${b[ 8]}${m[ 9]}a.y*b.${b[ 9]}
+    ${m[10]}a.z*b.${b[10]}${m[11]}a.w*b.${b[11]},
+    ${m[12]}a.x*b.${b[12]}${m[13]}a.y*b.${b[13]}
+    ${m[14]}a.z*b.${b[14]}${m[15]}a.w*b.${b[15]}
+  );
+}`;
+}
+
+// Signs
+
+for (let i=0;i<16;i++) {
+  const btn = document.createElement("button");
+  btn.textContent = mat[i]?"-":"+";
+  btn.className = mat[i]?"red":"blue";
+  btn.onclick = () => {
+    mat[i] = 1-mat[i];
+    btn.textContent = mat[i]?"-":"+";
+    btn.className = mat[i]?"red":"blue";
+    update_v();
+    compile_shader();
+    gl.drawArrays(gl.TRIANGLES,0,6);
+  };
+  signs.appendChild(btn);
+}
+
+const compile_shader = () => {
+  const vss = `attribute vec4 a_position;void main(){gl_Position=a_position;}`;
+  const fss = shader.replace("//--input--//",`
+    #define s(p) p.${["xyzw","xywz","xwyz","wxyz"][order]}
+    ${get_mul(n)}
+  `)+`void main(){mainImage(gl_FragColor,gl_FragCoord.xy);}`;
+  try {
+    const vs = create_shader(gl,gl.VERTEX_SHADER,vss);
+    const fs = create_shader(gl,gl.FRAGMENT_SHADER,fss);
+    program = create_program(gl,vs,fs);
+    gl.useProgram(program);
+    rloc = gl.getUniformLocation(program,"iResolution");
+    mloc = gl.getUniformLocation(program,"iCamera");
+    gl.uniform3f(rloc,canvas.width,canvas.height,canvas.width/canvas.height);
+    gl.uniform4f(mloc,camera.x,camera.y,0,0);
+  } catch (e) {}
+}
+
+const load = (id) => {
+  if (parseInt(id)) vinput.value = parseInt(id);
+  const l = parseInt(vinput.value)||0;
+  order = Math.floor(l/(576*65536));
+  update_orders(order);
+  const r = l%(576*65536);
+  const v = Math.floor(r/576);
+  n = r%576;
+  for (let i=0;i<16;i++) {
+    const btn = signs.children[i];
+    if ((v & (1 << i)) !== 0) {
+      btn.textContent = "-";
+      btn.className = "red";
+      mat[i] = 1;
+    } else {
+      btn.textContent = "+";
+      btn.className = "blue";
+      mat[i] = 0;
+    }
+  }
+  ninput.value = n;
+  update_v();
+  compile_shader();
+  gl.drawArrays(gl.TRIANGLES,0,6);
+}
+
+canvas.width = canvas.height = 512;
+const gl = canvas.getContext("webgl",{ preserveDrawingBuffer: true });
+gl.viewport(0,0,canvas.width,canvas.height);
+let program;
+
+vinput.addEventListener("input",load);
+vinput.value = parseInt(window.location.hash.substring(1))||38162424;
+load();
+
+const positionBuffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER,positionBuffer);
+const positions = [
+  -1, -1,
+   1, -1,
+  -1,  1,
+  -1,  1,
+   1, -1,
+   1,  1,
+];
+gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(positions),gl.STATIC_DRAW);
+const positionLocation = gl.getAttribLocation(program,"a_position");
+gl.enableVertexAttribArray(positionLocation);
+gl.vertexAttribPointer(positionLocation,2,gl.FLOAT,false,0,0);
+
+const set_camera = (x,y) => {
+  camera.x = x;
+  camera.y = y;
+  gl.uniform4f(mloc,x,y,0,0);
+  gl.drawArrays(gl.TRIANGLES,0,6);
+}
+
+const render = () => {
+  if (camera_changing) {
+    gl.uniform4f(mloc,camera.x,camera.y,0,0);
+    gl.drawArrays(gl.TRIANGLES,0,6);
+  }
+  requestAnimationFrame(render);
+}
+gl.drawArrays(gl.TRIANGLES,0,6);
+render();
+
+document.querySelector(".wrapper").style.opacity = "1";
+
+</script>
+
+</body>
+</html>
