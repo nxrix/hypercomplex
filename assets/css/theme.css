@@ -112,7 +112,6 @@ select {
   outline-color: #f05;
   border-radius: 4px;
   accent-color: #f05;
-  padding: 4px 8px;
 }
 
 input[type="range"] {
