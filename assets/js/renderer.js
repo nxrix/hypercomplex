@@ -50,11 +50,30 @@ const get_mul_table = (n,mat) => {
   return table;
 }
 
+const get_derivative = (n,d) => {
+  const t = [];
+  for (let i = 0; i < n; i++) {
+    const o = Array(n).fill("z");
+    o[i] = d;
+    let e = o[0];
+    for (let j = 1; j < n; j++) {
+      e = `mul(${e},${o[j]})`;
+    }
+    t.push(e);
+  }
+  return t.join("+");
+}
+
 const get_shader = (n,m,o) => {
+  const p = parseInt(pinput.value);
   return shader.replace("//--input--//",
     `#define s(p) p.${["xyzw","xywz","xwyz","wxyz"][o]}\n`+
     get_mul(n,m)
-  );
+  ).replaceAll("//--derivative--//",
+    `dx = ${get_derivative(p,"dx")}+s(vec4(1,0,0,0));\n`+
+    `dy = ${get_derivative(p,"dy")}+s(vec4(0,1,0,0));\n`+
+    `dz = ${get_derivative(p,"dz")}+s(vec4(0,0,1,0));`
+  ).replaceAll("//--power--//",[...Array(p-1)].reduce((a,_)=>`mul(${a},z)`,"z")).replace("//--power_number--//",p+".0");
 }
 
 const renderer = new THREE.WebGLRenderer({ canvas, context: canvas.getContext("webgl2",{ antialias: false, preserveDrawingBuffer: true }) });
