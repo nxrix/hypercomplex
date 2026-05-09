@@ -18,7 +18,7 @@ A 4×4 Latin square on $\\{1, i, j, k\\}$ has 576 possibilities. Most of them lo
 
 The main canvas shows a 3D slice of the 4D fractal.
 Below that we have:
-- ID input that encodes the table index (0–575), the signs for all 16 cells of the table (2 bytes, each bit 0=+, 1=−), and the slice plane. The encoding is:
+- ID input that encodes the table index (0-575), the signs for all 16 cells of the table (2 bytes, each bit 0=+, 1=-), and the slice plane. The encoding is:
   - id = table_number + sign_flags × 576 + slice × 576*(2^16)
 - Slices - 0 (w=0), 1 (z=0), 2 (y=0), 3 (x=0).
 - A 4×4 grid of sign buttons.
