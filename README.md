@@ -6,13 +6,13 @@ A tool for exploring latin square 4D hypercomplex fractals.
 
 ## What
 
-The Mandelbrot set was so beautiful that everyone wanted a 3D version of it. The first idea was to extend complex numbers into higher dimensions, which gives you the 4D quaternions – but the quaternion Mandelbrot looks very boring. So people tried different routes for years like extending complex numbers with rotations that led to the Mandelbulb, or custom power functions made by hand.
+The Mandelbrot set was so beautiful that everyone wanted a 3D version of it. The first idea was to extend complex numbers into higher dimensions, which gives you the 4D quaternions - but the quaternion Mandelbrot looks very boring. So people tried different routes for years like extending complex numbers with rotations that led to the Mandelbulb, or custom power functions made by hand.
 
-Looking at quaternions and those custom functions, you can see that the z \to z^2 rule always comes from a multiplication table that is a Latin square (each symbol appears exactly once per row and column), plus a bunch of sign choices. So I generate all possible Latin‑square tables to see what fractals they produce.
+Looking at quaternions and those custom functions, you can see that the z to z^2 rule always comes from a multiplication table that is a Latin square (each symbol appears exactly once per row and column), plus a bunch of sign choices. So I generate all possible Latin‑square tables to see what fractals they produce.
 
-A 4×4 Latin square on {1, i, j, k} has 576 possibilities. Most of them look different only because we’ve renamed the symbols or rotated the table. To clean this up we have quasigroup isomorphism – when you allow renaming the basis elements, the 576 tables collapse into exactly 24 unique algebras. I wasn't able to find them so I grouped them all by hand, rendering them with raymarching, and among the 24 only 6 have a special kind of symmetry. Those 6 are the ones that actually make beautiful, recognisable Mandelbrot‑style shapes.
+A 4×4 Latin square on {1, i, j, k} has 576 possibilities. Most of them look different only because we’ve renamed the symbols or rotated the table. To clean this up we have quasigroup isomorphism - when you allow renaming the basis elements, the 576 tables collapse into exactly 24 unique algebras. I wasn't able to find them so I grouped them all by hand, rendering them with raymarching, and among the 24 only 6 have a special kind of symmetry. Those 6 are the ones that actually make beautiful, recognisable Mandelbrot‑style shapes.
 
-(In the tool, there’s a table listing all 24 groups with a tiny preview image. The groups that produce good fractals have a coloured preview – the rest are greyed out.)
+(In the tool, there’s a table listing all 24 groups with a tiny preview image. The groups that produce good fractals have a coloured preview - the rest are greyed out.)
 
 ## Usage
 
