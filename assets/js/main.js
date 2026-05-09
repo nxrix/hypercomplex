@@ -174,6 +174,17 @@ for (let i=0;i<16;i++) {
   signs.appendChild(btn);
 }
 
+// P input
+
+pinput.addEventListener("input",()=>{
+  update_shader(n,mat,order);
+});
+for (let i=2;i<=9;i++) {
+  const o = document.createElement("option");
+  o.value = o.text = i;
+  pinput.appendChild(o);
+}
+
 // Loading
 
 const load = (id) => {
