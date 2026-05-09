@@ -55,10 +55,8 @@ void rot(inout vec2 p, float a) {
       vec4 dz = s(vec4(0,0,1,0));
       for (int i=0;i<max_iter;i++) {
         if (dot(z,z)>16.0) break;
-        dx = mul(dx,z)+mul(z,dx)+s(vec4(1,0,0,0));
-        dy = mul(dy,z)+mul(z,dy)+s(vec4(0,1,0,0));
-        dz = mul(dz,z)+mul(z,dz)+s(vec4(0,0,1,0));
-        z = mul(z,z)+c;
+        //--derivative--//
+        z = //--power--//+c;
       }
       float zl = length(z);
       return 0.5*zl*log(zl)/sqrt(dot(dx,dx)+dot(dy,dy)+dot(dz,dz));
@@ -71,9 +69,9 @@ void rot(inout vec2 p, float a) {
       for (int i=0;i<max_iter;i++) {
         float r2 = dot(z,z);
         if (r2>16.0) break;
-        vec4 z2 = mul(z,z);
+        vec4 z2 = //--power--//;
         z = z2+c;
-        d = 2.0*sqrt(dot(z2,z2)/max(r2,0.0001))*d+1.0;
+        d = //--power_number--//*sqrt(dot(z2,z2)/max(r2,0.0001))*d+1.0;
       }
       float zl = length(z);
       return 0.5*zl*log(zl)/d;
@@ -93,10 +91,8 @@ void rot(inout vec2 p, float a) {
       for (int i=0;i<max_iter;i++) {
         float r2 = dot(z,z);
         if (r2>16.0) break;
-        dx = mul(dx,z)+mul(z,dx)+s(vec4(1,0,0,0));
-        dy = mul(dy,z)+mul(z,dy)+s(vec4(0,1,0,0));
-        dz = mul(dz,z)+mul(z,dz)+s(vec4(0,0,1,0));
-        z = mul(z,z)+c;
+        //--derivative--//
+        z = //--power--//+c;
       }
       return normalize(vec3(
         dot(z,dx),
