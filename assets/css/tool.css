@@ -1,5 +1,6 @@
 #canvas {
   image-rendering: pixelated;
+  border: 1px solid #333;
 }
 .controls *:not(input), #table {
   user-select: none;
@@ -13,8 +14,10 @@
   box-sizing: border-box;
   height: 34px;
 }
-.controls input {
+.controls *:focus-visible {
   z-index: 1;
+}
+.controls input {
   width: 100%;
 }
 #orders {
@@ -36,15 +39,12 @@
 .red {
   background: #422;
   border: 1px solid #644;
-  border-radius: 2px;
 }
 .blue {
   background: #224;
   border: 1px solid #446;
-  border-radius: 2px;
 }
 .green {
   background: #242;
   border: 1px solid #464;
-  border-radius: 2px;
 }
