@@ -20,11 +20,11 @@
 .controls input {
   width: 100%;
 }
-#orders {
+#slices {
   display: flex;
   gap: 2px;
 }
-#orders button {
+#slices button {
   width: 100%;
   height: 100%;
 }
