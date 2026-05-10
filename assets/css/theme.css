@@ -62,8 +62,8 @@ h6 {
 }
 
 a[href], a.link {
-  color: #f05;
-  text-decoration-color: #f05;
+  color: #85f;
+  text-decoration-color: #85f;
   text-decoration: none;
   cursor: pointer;
 }
@@ -109,23 +109,35 @@ textarea,
 select {
   background-color: #111;
   border: 1px solid #333;
-  outline-color: #f05;
+  outline-color: #85f;
   border-radius: 4px;
-  accent-color: #f05;
+  accent-color: #85f;
 }
 
+input[type="checkbox"], 
 input[type="range"] {
-  padding: 0;
+  vertical-align: middle;
 }
 
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-  outline: 2px solid #f05;
+  outline: 2px solid #85f;
   outline-offset: 1px;
 }
 
 button {
   cursor: pointer;
+}
+
+/*background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjMWQxYTI0Ij48cGF0aCBkPSJNNDgwLTM0NCAyNDAtNTg0bDU2LTU2IDE4NCAxODQgMTg0LTE4NCA1NiA1Ni0yNDAgMjQwWiIvPjwvc3ZnPg==);*/
+select {
+  appearance: none;
+  height: calc(1lh + 4px);
+  padding: 0 28px 0 8px;
+  background-repeat: no-repeat;
+  background-size: auto 75%;
+  background-position: right 4px center;
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjZTdlMGVlIj48cGF0aCBkPSJNNDgwLTM0NCAyNDAtNTg0bDU2LTU2IDE4NCAxODQgMTg0LTE4NCA1NiA1Ni0yNDAgMjQwWiIvPjwvc3ZnPg==);
 }
