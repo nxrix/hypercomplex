@@ -43,7 +43,7 @@ But this is not valid for any other 4D algebra. The multiplication table breaks 
 To fix it, I used:
 
 $$
-d \leftarrow 2 \cdot \frac{|Z^2|}{|Z|} \cdot d + 1
+d \leftarrow 2 \cdot \frac{|Z^2|}{max(|Z|,\epsilon)} \cdot d + 1
 $$
 
 where $Z^2 = mul(Z,Z)$. This works because $\frac{|Z^2|}{|Z|}$ acts like an effective norm factor.
