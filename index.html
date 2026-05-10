@@ -25,13 +25,9 @@
     <br>
 
     <div>
-      <label for="camera_fov">FOV</label>
-      <input type="range" name="camera_fov" id="camera_fov" min="30" max="90" step="5" value="45">
-    </div>
-    
-    <div>
-      <label for="camera_type">Orthographic</label>
-      <input type="checkbox" name="camera_type" id="camera_type" checked>
+      <label for="juliaMode">Julia Mode</label>
+      <input type="checkbox" name="juliaMode" id="juliaMode">
+      <div id="juliaControls" style="margin-top:8px;display:none;flex-direction:column;gap:4px"></div>
     </div>
     
     <br>
@@ -42,7 +38,7 @@
         <input id="vinput" type="number" style="text-align:center" value="0">
       </div>
 
-      <div id="orders">
+      <div id="slices">
         <button>0</button>
         <button>1</button>
         <button>2</button>
@@ -72,10 +68,22 @@
     <br>
 
     <div>
-      <button onclick="save_image()">Save Image</button>
-      <button onclick="save_image(true)">Save Image Anti-Aliased</button>
+      <label for="cameraType">Perspective</label>
+      <input type="checkbox" name="cameraType" id="cameraType">
       <br>
-      <button onclick="save_shader()" style="margin-top:3px">Export for ShaderToy</button>
+      <div id="fovContainer" style="display:none">
+        <label for="cameraFov">Field Of View</label>
+        <input type="range" name="cameraFov" id="cameraFov" min="30" max="90" step="5" value="45">
+      </div>
+    </div>
+
+    <br>
+
+    <div>
+      <button onclick="saveImage()">Save Image</button>
+      <button onclick="saveImage(true)">Save Image Anti-Aliased</button>
+      <br>
+      <button onclick="saveShader()" style="margin-top:3px">Export for ShaderToy</button>
     </div>
 
     <hr>
