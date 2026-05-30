@@ -117,7 +117,6 @@ scene.add(cube);
 
 const cameraResize = (w,h) => {
   renderer.setSize(w,h,true);
-  renderer.setPixelRatio(window.devicePixelRatio);
   
   const aspect = w/h;
 
