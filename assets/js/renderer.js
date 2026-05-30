@@ -86,7 +86,7 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
 
 const perspectiveCamera = new THREE.PerspectiveCamera(45,1,0.125,256);
-const orthographicCamera = new THREE.OrthographicCamera(-2,2,2,-2,0.125,256);
+const orthographicCamera = new THREE.OrthographicCamera(-2,2,2,-2,-8,256);
 perspectiveCamera.position.set(0,0,4);
 orthographicCamera.position.set(0,0,4);
 let camera = orthographicCamera;
@@ -118,7 +118,6 @@ const cube = new THREE.Mesh(
     side: THREE.DoubleSide
   })
 );
-cube.frustumCulled = false;
 scene.add(cube);
 
 const cameraResize = (w,h,r=1) => {
