@@ -81,7 +81,8 @@ const getShader = (state) => {
 }
 
 const renderer = new THREE.WebGLRenderer({ canvas, context: canvas.getContext("webgl2",{ antialias: false, preserveDrawingBuffer: true }) });
-renderer.setSize(512,512,true);
+renderer.setSize(512,512,false);
+canvas.width = canvas.height = 512;
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.outputColorSpace  = THREE.LinearSRGBColorSpace;
 
@@ -121,7 +122,9 @@ const cube = new THREE.Mesh(
 scene.add(cube);
 
 const cameraResize = (w,h) => {
-  renderer.setSize(w,h,true);
+  renderer.setSize(w,h,false);
+  canvas.width = w;
+  canvas.height = h;
   
   const aspect = w/h;
 
