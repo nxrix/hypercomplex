@@ -107,7 +107,7 @@ for (let i=0;i<4;i++) {
   range.value = 0;
 
   const update = (i,v) => {
-    if (isNaN(parseFloat(val))) return;
+    if (isNaN(parseFloat(v))) return;
     num.value = v;
     range.value = v;
     state.c[i] = v;
