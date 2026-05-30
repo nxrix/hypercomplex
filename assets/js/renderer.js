@@ -82,8 +82,8 @@ const getShader = (state) => {
 
 const renderer = new THREE.WebGLRenderer({ canvas, context: canvas.getContext("webgl2",{ antialias: false, preserveDrawingBuffer: true }) });
 renderer.setSize(512,512,false);
-canvas.style.width = canvas.style.height = 512;
 renderer.setPixelRatio(window.devicePixelRatio);
+canvas.style.width = canvas.style.height = 512;
 renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
 
 const perspectiveCamera = new THREE.PerspectiveCamera(45,1,0.125,256);
