@@ -42,11 +42,6 @@ void rot(inout vec2 p, float a) {
 #define neps eps
 #endif
 
-//#define accurate_f
-#ifndef julia
-#define accurate_n
-#endif
-
 #ifdef custom_f
 #else
   #ifdef accurate_f
@@ -64,7 +59,14 @@ void rot(inout vec2 p, float a) {
       for (int i=0;i<max_iter;i++) {
         if (dot(z,z)>16.0) break;
         //--derivative--//
-        z = //--power--//+c;
+        #ifdef iabsz
+        z.y = abs(z.y);
+        #endif
+        z = //--power--//;
+        #ifdef iabszn
+        z.y = abs(z.y);
+        #endif
+        z += c;
       }
       float zl = length(z);
       return 0.5*zl*log(zl)/sqrt(dot(dx,dx)+dot(dy,dy)+dot(dz,dz));
@@ -82,8 +84,15 @@ void rot(inout vec2 p, float a) {
       for (int i=0;i<max_iter;i++) {
         float r2 = dot(z,z);
         if (r2>16.0) break;
+        #ifdef iabsz
+        z.y = abs(z.y);
+        #endif
         vec4 z2 = //--power--//;
-        z = z2+c;
+        z = z2;
+        #ifdef iabszn
+        z.y = abs(z.y);
+        #endif
+        z += c;
         d = //--power_number--//*sqrt(dot(z2,z2)/max(r2,0.0001))*d+1.0;
       }
       float zl = length(z);
