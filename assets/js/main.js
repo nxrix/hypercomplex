@@ -116,7 +116,7 @@ for (let i=0;i<4;i++) {
   }
 
   num.addEventListener("input",()=>update(0,i,num.value));
-  range.addEventListener("input"e,()=>update(1,i,range.value));
+  range.addEventListener("input",()=>update(1,i,range.value));
 
   row.appendChild(num);
   row.appendChild(range);
