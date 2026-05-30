@@ -4,7 +4,7 @@ import { renderer, cameraResize, getMul, getMulTable , updateShader, setJuliaUni
 
 import "./groups.js";
 
-const state = { n: 0, s: 0, p: 2, j: false, c: [0,0,0,0] , m: new Array(16).fill(0) };
+const state = { n: 0, s: 0, p: 2, j: false, iabsz: false, iabszn: false, c: [0,0,0,0] , m: new Array(16).fill(0) };
 
 const sliceButtons = document.querySelectorAll("#slices button");
 
@@ -123,6 +123,20 @@ for (let i=0;i<4;i++) {
   row.appendChild(range);
   juliaControls.appendChild(row);
 }
+
+// abs Modes
+
+iabszMode.addEventListener("change", () => {
+  state.iabsz = iabszMode.checked;
+  updateURL();
+  updateShader(state);
+});
+
+iabsznMode.addEventListener("change", () => {
+  state.iabszn = iabsznMode.checked;
+  updateURL();
+  updateShader(state);
+});
 
 // Loading
 
