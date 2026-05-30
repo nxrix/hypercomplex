@@ -14,9 +14,9 @@ const updateURL = () => {
   const params = new URLSearchParams();
   params.set("v",packed);
   params.set("p",state.p);
-  if (state.j) {
-    params.set("j",state.c.join(","));
-  }
+  if (state.j) params.set("j",state.c.join(","));
+  if (state.iabsz) params.set("iabsz","1");
+  if (state.iabszn) params.set("iabszn","1");
   history.replaceState({}, "", "?" + params.toString());
   vinput.value = packed;
 }
@@ -171,6 +171,8 @@ if (state.j) {
     setJuliaUniform(i,state.c[i]);
   }
 }
+state.iabsz = params.has("iabsz");
+state.iabszn = params.has("iabszn");
 updateURL();
 updateShader(state);
 
