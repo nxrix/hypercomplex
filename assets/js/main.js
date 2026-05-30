@@ -107,12 +107,13 @@ for (let i=0;i<4;i++) {
   range.value = 0;
 
   const update = (e,i,v) => {
-    if (isNaN(parseFloat(v))) return;
+    const f = parseFloat(v);
+    if (isNaN(f)) return;
     if (e===1) num.value = v;
     else range.value = v;
-    state.c[i] = v;
+    state.c[i] = f;
     updateURL();
-    setJuliaUniform(i,v);
+    setJuliaUniform(i,f);
   }
 
   num.addEventListener("input",()=>update(0,i,num.value));
