@@ -106,17 +106,17 @@ for (let i=0;i<4;i++) {
   range.step = 0.01;
   range.value = 0;
 
-  const update = (i,v) => {
+  const update = (e,i,v) => {
     if (isNaN(parseFloat(v))) return;
-    num.value = v;
-    range.value = v;
+    if (e===1) num.value = v;
+    else range.value = v;
     state.c[i] = v;
     updateURL();
     setJuliaUniform(i,v);
   }
 
-  num.addEventListener("input",()=>update(i,num.value));
-  range.addEventListener("input",()=>update(i,range.value));
+  num.addEventListener("input",()=>update(0,i,num.value));
+  range.addEventListener("input"e,()=>update(1,i,range.value));
 
   row.appendChild(num);
   row.appendChild(range);
