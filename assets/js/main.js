@@ -171,8 +171,8 @@ if (state.j) {
     setJuliaUniform(i,state.c[i]);
   }
 }
-state.iabsz = params.has("iabsz");
-state.iabszn = params.has("iabszn");
+state.iabsz = iabszMode.checked = params.has("iabsz");
+state.iabszn = iabsznMode.checked = params.has("iabszn");
 updateURL();
 updateShader(state);
 
