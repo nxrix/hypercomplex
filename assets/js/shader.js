@@ -64,7 +64,7 @@ void rot(inout vec2 p, float a) {
         #endif
         z = //--power--//;
         #ifdef iabszn
-        z.y = abs(z.y);
+        z.y = -abs(z.y);
         #endif
         z += c;
       }
@@ -90,7 +90,7 @@ void rot(inout vec2 p, float a) {
         vec4 z2 = //--power--//;
         z = z2;
         #ifdef iabszn
-        z.y = abs(z.y);
+        z.y = -abs(z.y);
         #endif
         z += c;
         d = //--power_number--//*sqrt(dot(z2,z2)/max(r2,0.0001))*d+1.0;
