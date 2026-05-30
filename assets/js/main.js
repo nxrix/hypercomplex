@@ -21,7 +21,7 @@ const updateURL = () => {
   vinput.value = packed;
 }
 
-const updateState = () => {
+const updateState = (k=false) => {
   sliceButtons.forEach((b,i) => {
     b.classList.toggle("green",i===state.s);
   });
@@ -31,7 +31,7 @@ const updateState = () => {
     b.textContent = (m?"-":"+")+["1","i","j","k"][v];
     b.className = m?"red":"blue";
   });
-  ninput.value = state.n;
+  if (!k) ninput.value = state.n;
   updateURL();
   updateShader(state);
 }
@@ -48,7 +48,7 @@ prev.onclick = () => { state.n = Math.max(state.n-1,  0); updateState(); };
 next.onclick = () => { state.n = Math.min(state.n+1,575); updateState(); };
 ninput.addEventListener("input", () => {
   state.n = Math.min(Math.max(parseInt(ninput.value)||0,0),575);
-  updateState();
+  updateState(true);
 });
 
 // Signs
@@ -107,13 +107,12 @@ for (let i=0;i<4;i++) {
   range.value = 0;
 
   const update = (i,v) => {
-    const val = parseFloat(v);
-    if (isNaN(val)) val = 0;
-    num.value = val;
-    range.value = val;
-    state.c[i] = val;
+    if (isNaN(parseFloat(val))) return;
+    num.value = v;
+    range.value = v;
+    state.c[i] = v;
     updateURL();
-    setJuliaUniform(i,val);
+    setJuliaUniform(i,v);
   }
 
   num.addEventListener("input",()=>update(i,num.value));
