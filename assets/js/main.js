@@ -195,7 +195,6 @@ const saveImage = (aa = false) => {
   const oldSize = [canvas.width,canvas.height];
   const oldPixelRatio = renderer.getPixelRatio();
 
-  renderer.setPixelRatio(1);
   cameraResize(renderSize,renderSize);
 
   const gl = renderer.getContext();
@@ -238,8 +237,7 @@ const saveImage = (aa = false) => {
   const dataURL = offCanvas.toDataURL("image/png");
   saveFile(dataURL,`${vinput.value}_${new Date().toISOString().split("T")[0]}.png`);
 
-  cameraResize(oldSize[0],oldSize[1]);
-  renderer.setPixelRatio(oldPixelRatio);
+  cameraResize(oldSize[0],oldSize[1],window.devicePixelRatio);
 }
 
 window.saveImage = saveImage;
