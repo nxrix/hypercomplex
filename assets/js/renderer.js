@@ -82,9 +82,9 @@ const getShader = (state) => {
 
 const renderer = new THREE.WebGLRenderer({ canvas, context: canvas.getContext("webgl2",{ antialias: false, preserveDrawingBuffer: true }) });
 renderer.setSize(512,512,false);
-canvas.width = canvas.height = 512;
+canvas.style.width = canvas.style.height = 512;
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.outputColorSpace  = THREE.LinearSRGBColorSpace;
+renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
 
 const perspectiveCamera = new THREE.PerspectiveCamera(45,1,0.125,256);
 const orthographicCamera = new THREE.OrthographicCamera(-2,2,2,-2,0.125,256);
@@ -119,12 +119,13 @@ const cube = new THREE.Mesh(
     side: THREE.DoubleSide
   })
 );
+cube.frustumCulled = false;
 scene.add(cube);
 
 const cameraResize = (w,h) => {
   renderer.setSize(w,h,false);
-  canvas.width = w;
-  canvas.height = h;
+  canvas.style.width = w;
+  canvas.style.height = h;
   
   const aspect = w/h;
 
