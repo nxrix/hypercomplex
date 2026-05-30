@@ -237,7 +237,7 @@ const saveImage = (aa = false) => {
   const dataURL = offCanvas.toDataURL("image/png");
   saveFile(dataURL,`${vinput.value}_${new Date().toISOString().split("T")[0]}.png`);
 
-  cameraResize(oldSize[0],oldSize[1],window.devicePixelRatio);
+  cameraResize(oldSize[0]/oldPixelRatio,oldSize[1]/oldPixelRatio,window.devicePixelRatio);
 }
 
 window.saveImage = saveImage;
