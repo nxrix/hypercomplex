@@ -64,8 +64,13 @@ const getDerivative = (n,d) => {
 const getShader = (state) => {
   const p = state.p;
   const j = state.j;
+  const a0 = state.iabsz;
+  const a1 = state.iabszn;
   return shaderRaw.replace("//--input--//",
     (j?"#define julia\n\n":"")+
+    (a0?"#define iabsz\n\n":"")+
+    (a1?"#define iabsz\n\n":"")+
+    (!(j||a0||a1)?"#define accurate_n\n\n":"")+
     `${getMul(state)}\n`+
     `#define s(p) p.${["xyzw","xywz","xwyz","wxyz"][state.s]}\n`
   ).replaceAll("//--derivative--//",
