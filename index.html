@@ -1,130 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./assets/css/theme.css">
-  <link rel="stylesheet" href="./assets/css/layout.css">
-  <link rel="stylesheet" href="./assets/css/tool.css">
-  <title>?</title>
-</head>
-<body>
+---
+layout: default
+---
 
-<div class="wrapper">
-  <div id="content" style="opacity:0;padding-top:14px">
+<link rel="stylesheet" href="./assets/css/tool.css">
+
+<h1>Hypercomplex</h1>
+
+Check the <a href="https://github.com/nxrix/hypercomplex" target="_blank">GitHub repository</a> to learn more
+
+<hr>
+
+<canvas id="canvas" style="border-radius:8px"></canvas>
+
+<br>
+<br>
+
+<div>
+  <label for="juliaMode">Julia Mode</label>
+  <input type="checkbox" name="juliaMode" id="juliaMode">
+  <div id="juliaControls" style="margin-top:8px;display:none;flex-direction:column;gap:4px"></div>
+</div>
     
-    <h1>Hypercomplex</h1>
+<br>
 
-    Check the <a href="https://github.com/nxrix/hypercomplex" target="_blank">GitHub repository</a> to learn more
+<div class="controls">
 
-    <hr>
-
-    <canvas id="canvas" style="border-radius:8px"></canvas>
-
-    <br>
-    <br>
-
-    <div>
-      <label for="juliaMode">Julia Mode</label>
-      <input type="checkbox" name="juliaMode" id="juliaMode">
-      <div id="juliaControls" style="margin-top:8px;display:none;flex-direction:column;gap:4px"></div>
-    </div>
-    
-    <br>
-
-    <div class="controls">
-
-      <div style="display:flex">
-        <input id="vinput" type="number" style="text-align:center" value="0">
-      </div>
-
-      <div id="slices">
-        <button>0</button>
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-      </div>
-
-      <div id="signs">
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 2fr 1fr;gap:2px">
-        <button id="prev"><</button>
-        <div style="display:flex">
-          <input id="ninput" type="number" style="text-align:center" value="0" min="0" max="575">
-        </div>
-        <button id="next">></button>
-      </div>
-
-    </div>
-
-    <br>
-    
-    <div>
-      <label for="pinput" style="margin-right:8px">Power</label>
-      <select name="pinput" id="pinput"></select>
-    </div>
-
-    <br>
-
-    <div>
-      <label for="iabszMode">iabs(z)^n</label>
-      <input type="checkbox" name="iabszMode" id="iabszMode">
-    </div>
-
-    <div>
-      <label for="iabsznMode">iabs(z^n)</label>
-      <input type="checkbox" name="iabsznMode" id="iabsznMode">
-    </div>
-
-    <br>
-
-    <div>
-      <label for="cameraType">Perspective</label>
-      <input type="checkbox" name="cameraType" id="cameraType">
-      <br>
-      <div id="fovContainer" style="display:none">
-        <label for="cameraFov">Field Of View</label>
-        <input type="range" name="cameraFov" id="cameraFov" min="30" max="90" step="5" value="45">
-      </div>
-    </div>
-
-    <br>
-
-    <div>
-      <button onclick="saveImage()">Save Image</button>
-      <button onclick="saveImage(true)">Save Image Anti-Aliased</button>
-      <br>
-      <button onclick="saveShader()" style="margin-top:3px">Export for ShaderToy</button>
-    </div>
-
-    <hr>
-
-    <h2>Examples</h2>
-    <p>
-      <a class="link" onclick="load(this.innerText)">53766148</a>
-      <br>
-      <a class="link" onclick="load(this.innerText)">76437908</a>
-      <br>
-      <a class="link" onclick="load(this.innerText)">34891776</a>
-      <br>
-      <a class="link" onclick="load(this.innerText)">16017408</a>
-      <br>
-      <a class="link" onclick="load(this.innerText)">21256704</a>
-      <br>
-      <a class="link" onclick="load(this.innerText)">33638400</a>
-    </p>
-
-    <hr>
-
-    <table id="table" style="font-size:12px;text-align:center"></table>
-
+  <div style="display:flex">
+    <input id="vinput" type="number" style="text-align:center" value="0">
   </div>
-  <div style="margin-top:auto;">
-    <hr>
-    <div id="footer">Copyright nxrix, 2026</div>
+
+  <div id="slices">
+    <button>0</button>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+  </div>
+
+  <div id="signs"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 2fr 1fr;gap:2px">
+    <button id="prev"><</button>
+    <div style="display:flex">
+      <input id="ninput" type="number" style="text-align:center" value="0" min="0" max="575">
+    </div>
+    <button id="next">></button>
+  </div>
+
+</div>
+
+<br>
+    
+<div>
+  <label for="pinput" style="margin-right:8px">Power</label>
+  <select name="pinput" id="pinput"></select>
+</div>
+
+<br>
+
+<div>
+  <label for="iabszMode">iabs(z)^n</label>
+  <input type="checkbox" name="iabszMode" id="iabszMode">
+</div>
+
+<div>
+  <label for="iabsznMode">iabs(z^n)</label>
+  <input type="checkbox" name="iabsznMode" id="iabsznMode">
+</div>
+
+<br>
+
+<div>
+  <label for="cameraType">Perspective</label>
+  <input type="checkbox" name="cameraType" id="cameraType">
+  <br>
+  <div id="fovContainer" style="display:none">
+    <label for="cameraFov">Field Of View</label>
+    <input type="range" name="cameraFov" id="cameraFov" min="30" max="90" step="5" value="45">
   </div>
 </div>
+
+<br>
+
+<div>
+  <button onclick="saveImage()">Save Image</button>
+  <button onclick="saveImage(true)">Save Image Anti-Aliased</button>
+  <br>
+  <button onclick="saveShader()" style="margin-top:3px">Export for ShaderToy</button>
+</div>
+
+<hr>
+
+<h2>Examples</h2>
+<p>
+  <a class="link" onclick="load(this.innerText)">53766148</a>
+  <br>
+  <a class="link" onclick="load(this.innerText)">76437908</a>
+  <br>
+  <a class="link" onclick="load(this.innerText)">34891776</a>
+  <br>
+  <a class="link" onclick="load(this.innerText)">16017408</a>
+  <br>
+  <a class="link" onclick="load(this.innerText)">21256704</a>
+  <br>
+  <a class="link" onclick="load(this.innerText)">33638400</a>
+</p>
+
+<hr>
+
+<table id="table" style="font-size:12px;text-align:center"></table>
 
 <!--script type="importmap">
   {
@@ -143,6 +126,3 @@
   }
 </script>
 <script type="module" src="./assets/js/main.js"></script>
-
-</body>
-</html>
