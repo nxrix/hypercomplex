@@ -150,9 +150,7 @@ vec4 render() {
     rd = normalize(vec3(vM[0][2],vM[1][2],vM[2][2]));
   }
   vec2 b = iSphere(ro,rd,vec3(0),2.0);
-  if (b.x==16.0) {
-    return vec4(0);
-  }
+  if (b.x==16.0) return vec4(0);
   float t = max(0.0,b.x);
   for (int i=0;i<512;i++) {
     vec3 p = ro+rd*t;
@@ -294,9 +292,7 @@ vec4 render(vec2 fragCoord) {
   #endif
 
   vec2 b = iSphere(ro,rd,vec3(0),2.0);
-  if (b.x==16.0) {
-    return vec4(0);
-  }
+  if (b.x==16.0) return vec4(0);
   float t = max(0.0,b.x);
   for (int i=0;i<512;i++) {
     vec3 p = ro+rd*t;
