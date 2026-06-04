@@ -73,7 +73,7 @@ rows.forEach(row => {
   cells.forEach(td => {
     const div = td.querySelector("div");
     if (div) {
-      div.style.height = max+16+"px";
+      div.style.height = max+"px";
       div.style.padding = "8px";
     }
   });
