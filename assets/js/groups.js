@@ -11,6 +11,7 @@ for (let i = 0; i < 6; i++) {
     const groupData = groupsSorted[groupIndex];
     const div = document.createElement("div");
     div.style.outline = "1px solid var(--c3)";
+    div.style.padding = "0 8px";
     div.style.borderRadius = "8px";
     div.style.display = "flex";
     div.style.flexDirection = "column";
@@ -26,7 +27,7 @@ for (let i = 0; i < 6; i++) {
     img.style.backgroundPosition = `0% calc(100%/23*${n})`;
     img.style.backgroundSize = "100% 2400%";
     if (s) img.style.filter = "sepia(1) saturate(3) hue-rotate(225deg)";
-    img.style.marginBottom = "8px";
+    img.style.margin = "8px 0";
     div.appendChild(img);
     const header = document.createElement("div");
     header.textContent = `n${n+1}`+(s?" - s":"");
@@ -38,7 +39,7 @@ for (let i = 0; i < 6; i++) {
     div.appendChild(hr);
 
     const itable = document.createElement("table");
-    itable.style.margin = "0";
+    itable.style.margin = "0 0 8px 0";
     for (let k = 0; k < 8; k++) {
       const irow = document.createElement("tr");
       for (let m = 0; m < 4; m++) {
@@ -72,9 +73,6 @@ rows.forEach(row => {
   });
   cells.forEach(td => {
     const div = td.querySelector("div");
-    if (div) {
-      div.style.height = max+"px";
-      div.style.padding = "8px";
-    }
+    if (div) div.style.height = max+"px";
   });
 });
