@@ -39,7 +39,7 @@ for (let i = 0; i < 6; i++) {
     div.appendChild(hr);
 
     const itable = document.createElement("table");
-    itable.style.margin = "0 0 8px 0";
+    itable.style.margin = "0";
     for (let k = 0; k < 8; k++) {
       const irow = document.createElement("tr");
       for (let m = 0; m < 4; m++) {
@@ -73,6 +73,6 @@ rows.forEach(row => {
   });
   cells.forEach(td => {
     const div = td.querySelector("div");
-    if (div) div.style.height = max+"px";
+    if (div) div.style.height = max+8+"px";
   });
 });
