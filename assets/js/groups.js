@@ -11,7 +11,6 @@ for (let i = 0; i < 6; i++) {
     const groupData = groupsSorted[groupIndex];
     const div = document.createElement("div");
     div.style.outline = "1px solid var(--c3)";
-    div.style.padding = "8px";
     div.style.borderRadius = "8px";
     div.style.display = "flex";
     div.style.flexDirection = "column";
@@ -39,6 +38,7 @@ for (let i = 0; i < 6; i++) {
     div.appendChild(hr);
 
     const itable = document.createElement("table");
+    itable.style.margin = "0";
     for (let k = 0; k < 8; k++) {
       const irow = document.createElement("tr");
       for (let m = 0; m < 4; m++) {
@@ -72,6 +72,9 @@ rows.forEach(row => {
   });
   cells.forEach(td => {
     const div = td.querySelector("div");
-    if (div) div.style.height = max+"px";
+    if (div) {
+      div.style.height = max+16+"px";
+      div.style.padding = "8px";
+    }
   });
 });
