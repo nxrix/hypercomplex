@@ -25,8 +25,6 @@ const backtrack = (p) => {
 }
 backtrack(0);
 
-//[0,1,2,3,26,27]
-
 const groups = [
   [
       0,171,404,575
