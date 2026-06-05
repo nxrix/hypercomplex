@@ -2,7 +2,14 @@
 
 A tool for exploring Latin-square 4D hypercomplex fractals.
 
-<img src="./assets/img/53766148.webp" width="317">
+<img src="./assets/img/examples/53766148c.webp" width="317">
+
+## Showcase
+
+| <img src="./assets/img/examples/110389252.webp" width="256"> | <img src="./assets/img/examples/33638400.webp" width="256"> |
+|:-:|:-:|
+| <img src="./assets/img/examples/29509632j.webp" width="256"> <br> Julia | <img src="./assets/img/examples/72050689b.webp" width="256"> <br> Burning Ship |
+
 
 ## What
 
