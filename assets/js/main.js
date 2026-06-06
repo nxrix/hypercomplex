@@ -141,7 +141,7 @@ iabsznMode.addEventListener("change", () => {
 // Loading
 
 const loadFromHash = (hash) => {
-  const val = parseInt(hash)||53766148;
+  const val = parseInt(hash)||91514881;
   vinput.value = val;
   const l = val;
   state.s = Math.floor(l / (576 * 65536));

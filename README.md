@@ -2,7 +2,7 @@
 
 A tool for exploring Latin-square 4D hypercomplex fractals.
 
-<img src="./assets/img/examples/53766148c.webp" width="317">
+<img src="./assets/img/examples/91514881c.webp" width="317">
 
 ## Showcase
 
