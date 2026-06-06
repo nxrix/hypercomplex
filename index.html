@@ -10,58 +10,60 @@ Check the <a href="https://github.com/nxrix/hypercomplex" target="_blank">GitHub
 
 <hr>
 
-<canvas id="canvas" style="border-radius:8px"></canvas>
+<div style="width:fit-content;display:flex;gap:8px;flex-wrap:wrap">
 
-<br>
+  <canvas id="canvas" style="border-radius:8px"></canvas>
 
-<div style="width:fit-content;display:flex;gap:8px;flex-wrap:wrap-reverse">
+  <div style="width:fit-content;height:fit-content;margin-bottom:auto;display:flex;gap:8px;flex-wrap:wrap-reverse">
 
-  <div class="controls">
+    <div class="controls">
 
-    <div style="display:flex">
-      <input id="vinput" type="number" style="text-align:center" value="0">
-    </div>
-
-    <div id="slices">
-      <button>0</button>
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-    </div>
-
-    <div id="signs"></div>
-
-    <div style="display:grid;grid-template-columns:1fr 2fr 1fr;gap:2px">
-      <button id="prev"><</button>
       <div style="display:flex">
-        <input id="ninput" type="number" style="text-align:center" value="0" min="0" max="575">
+        <input id="vinput" type="number" style="text-align:center" value="0">
       </div>
-      <button id="next">></button>
+
+      <div id="slices">
+        <button>0</button>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+      </div>
+
+      <div id="signs"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 2fr 1fr;gap:2px">
+        <button id="prev"><</button>
+        <div style="display:flex">
+          <input id="ninput" type="number" style="text-align:center" value="0" min="0" max="575">
+        </div>
+        <button id="next">></button>
+      </div>
+
     </div>
 
-  </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
 
-  <div style="display:flex;flex-direction:column;gap:8px">
+      <div>
+        <label for="pinput" style="margin-right:8px">Power</label>
+        <select name="pinput" id="pinput"></select>
+      </div>
 
-    <div>
-      <label for="pinput" style="margin-right:8px">Power</label>
-      <select name="pinput" id="pinput"></select>
-    </div>
+      <div>
+        <label for="iabszMode">iabs(z)^n</label>
+        <input type="checkbox" name="iabszMode" id="iabszMode">
+      </div>
 
-    <div>
-      <label for="iabszMode">iabs(z)^n</label>
-      <input type="checkbox" name="iabszMode" id="iabszMode">
-    </div>
+      <div>
+        <label for="iabsznMode">iabs(z^n)</label>
+        <input type="checkbox" name="iabsznMode" id="iabsznMode">
+      </div>
 
-    <div>
-      <label for="iabsznMode">iabs(z^n)</label>
-      <input type="checkbox" name="iabsznMode" id="iabsznMode">
-    </div>
+      <div>
+        <label for="juliaMode">Julia Mode</label>
+        <input type="checkbox" name="juliaMode" id="juliaMode">
+        <div id="juliaControls" style="margin-top:8px;display:none;flex-direction:column;gap:4px"></div>
+      </div>
 
-    <div>
-      <label for="juliaMode">Julia Mode</label>
-      <input type="checkbox" name="juliaMode" id="juliaMode">
-      <div id="juliaControls" style="margin-top:8px;display:none;flex-direction:column;gap:4px"></div>
     </div>
 
   </div>
