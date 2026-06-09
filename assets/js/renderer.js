@@ -144,7 +144,7 @@ const cameraResize = (w,h,r=1) => {
   renderer.render(scene,camera);
 }
 const cameraResizeEvent = () => {
-  const z = Math.min(window.innerWidth-45,512);
+  const z = Math.min(content.clientWidth-2,512);
   cameraResize(z,z,window.devicePixelRatio);
 }
 window.addEventListener("resize",cameraResizeEvent);
