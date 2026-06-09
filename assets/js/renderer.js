@@ -81,8 +81,8 @@ const getShader = (state) => {
 }
 
 const renderer = new THREE.WebGLRenderer({ canvas, context: canvas.getContext("webgl2",{ antialias: false, preserveDrawingBuffer: true }) });
-renderer.setSize(512,512,true);
-renderer.setPixelRatio(window.devicePixelRatio);
+//renderer.setSize(512,512,true);
+//renderer.setPixelRatio(window.devicePixelRatio);
 renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
 
 const perspectiveCamera = new THREE.PerspectiveCamera(45,1,0.125,256);
@@ -143,8 +143,12 @@ const cameraResize = (w,h,r=1) => {
 
   renderer.render(scene,camera);
 }
-//window.addEventListener("resize",()=>cameraResize(window.innerWidth,window.innerHeight));
-//cameraResize(window.innerWidth,window.innerHeight);
+const cameraResizeEvent = () => {
+  const z = Math.min(window.innerWidth-45,512);
+  cameraResize(z,z,window.devicePixelRatio);
+}
+window.addEventListener("resize",cameraResizeEvent);
+cameraResizeEvent();
 
 let needsRender = true;
 const controls = new OrbitControls(camera,renderer.domElement);
