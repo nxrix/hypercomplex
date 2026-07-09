@@ -1,6 +1,7 @@
 # Hypercomplex
 
 A tool for exploring Latin-square 4D hypercomplex fractals.
+For source code of the new version check [observablehq.com/@nxrix/hypercomplex](https://observablehq.com/@nxrix/hypercomplex)
 
 <img src="./assets/img/examples/91514881c.webp" width="317">
 
